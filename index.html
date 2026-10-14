@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#112b27">
+    <meta name="description" content="A public-data GIS case study screening mapped cacao plots in Ucayali, Peru against mapped forest-loss observations.">
+    <meta property="og:title" content="Cacao origin, risk & readiness">
+    <meta property="og:description" content="A transparent GIS screening demo for cacao sourcing diligence in Ucayali, Peru.">
+    <meta property="og:type" content="article">
+    <title>Cacao origin, risk & readiness | Ucayali GIS case study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to case study</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Cacao origin and readiness, top of page">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Field notes <small>Ucayali, Peru</small></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#story">The story</a>
+        <a href="#evidence">GIS evidence</a>
+        <a href="#decision">Decision use</a>
+        <a href="#sources">Sources</a>
+      </nav>
+      <button class="print-button" type="button" id="print-page">
+        <span aria-hidden="true">↗</span> Print brief
+      </button>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-texture" aria-hidden="true">
+          <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice">
+            <path d="M-80 142C95 20 161 271 345 155S582 40 722 135s182 76 357-37" />
+            <path d="M-90 176C89 53 163 304 346 188S582 74 721 169s184 77 360-37" />
+            <path d="M-95 211C87 86 166 339 348 222S586 107 723 203s185 79 363-38" />
+            <path d="M-112 390C61 284 185 497 340 405s218-121 365-48 189 66 352-18" />
+            <path d="M-111 426C64 319 190 533 344 440s216-122 363-50 188 67 351-17" />
+            <path d="M-110 463C68 353 194 569 349 477s214-122 362-49 190 66 349-16" />
+          </svg>
+        </div>
+        <div class="hero-content page-width">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> Public-data GIS demonstration <span class="eyebrow-divider">/</span> Research snapshot: 14 October 2026</p>
+            <h1 id="hero-title">A map can point to a question. It can’t sign the declaration.</h1>
+            <p class="hero-lede">A plot-level forest-loss screen for cacao-growing areas in Ucayali, Peru. We compare public cacao polygons <a href="#source-cacao">[1]</a> with SERFOR/MINAM forest-loss observations <a href="#source-forest">[2]</a> to show how spatial evidence can sharpen sourcing diligence and investor conversations.</p>
+            <div class="hero-actions">
+              <a class="button button-light" href="#findings">See what we found <span aria-hidden="true">↓</span></a>
+              <a class="text-link text-link-light" href="#method">Follow the GIS workflow <span aria-hidden="true">↘</span></a>
+            </div>
+            <p class="hero-note">A demonstration with public datasets. No cooperative, supplier, buyer, or investor was assessed.</p>
+          </div>
+          <div class="hero-art" role="img" aria-label="QGIS source-layer screenshot showing cacao plot polygons and forest-loss observations over Ucayali, Peru">
+            <img src="/images/01-sources.png" width="1722" height="970" alt="">
+            <div class="hero-art-shade"></div>
+            <div class="hero-map-label">
+              <span class="map-label-kicker">Study area</span>
+              <strong>Ucayali</strong>
+              <span>Padre Abad province · cacao plot polygons</span>
+            </div>
+            <div class="hero-map-badge"><span class="pulse-dot"></span> Spatial screen <b>2019–2022</b></div>
+          </div>
+        </div>
+        <div class="hero-bottom page-width">
+          <span>Public data</span>
+          <span aria-hidden="true">·</span>
+          <span>QGIS 4.2.3</span>
+          <span aria-hidden="true">·</span>
+          <span>462 mapped plot polygons</span>
+          <span aria-hidden="true">·</span>
+          <span>Forest-loss source layer: 2001–2024</span>
+        </div>
+      </section>
+
+      <section class="metric-ribbon" aria-label="Key screening counts">
+        <div class="page-width metric-grid">
+          <article class="metric">
+            <span class="metric-value">462</span>
+            <p>cacao plot polygons in the cleaned input layer</p>
+          </article>
+          <article class="metric">
+            <span class="metric-value">85</span>
+            <p>plot IDs matched a row in the overlap summary</p>
+          </article>
+          <article class="metric">
+            <span class="metric-value">377</span>
+            <p>plot IDs had no matching summary row</p>
+          </article>
+          <article class="metric metric-caution">
+            <span class="metric-value">0%</span>
+            <p>of those unmatched rows can be called “cleared” from this join alone</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-paper" id="story" aria-labelledby="story-title">
+        <div class="page-width">
+          <div class="section-heading">
+            <p class="eyebrow eyebrow-dark">The business question</p>
+            <h2 id="story-title">Can an organization show where its cacao comes from, and what needs a closer look?</h2>
+            <p class="section-intro">Investor readiness is more than a map. It includes traceable origin, reliable records, operating capacity, volumes, contracts, cash flow, and a clear account of unresolved risks. This demo tests one small but useful part of that picture: whether public spatial data can help a team decide where to verify first.</p>
+          </div>
+
+          <div class="question-grid">
+            <article class="answer-card">
+              <div class="answer-number">01</div>
+              <div>
+                <h3>What did we do?</h3>
+                <p>We compared mapped cacao plot polygons <a href="#source-cacao">[1]</a> with mapped forest-loss polygons for 2019–2022 <a href="#source-forest">[2]</a>, then summarized the overlap by plot ID.</p>
+                <p class="investor-translation"><span>Investor read</span> We built a first-pass diligence screen that can help direct attention to specific plot records.</p>
+              </div>
+            </article>
+            <article class="answer-card">
+              <div class="answer-number">02</div>
+              <div>
+                <h3>How did we do it?</h3>
+                <p>We used QGIS to inspect, repair, filter, clip, overlay, summarize, join, calculate, and style the public layers. The analysis used a projected coordinate system measured in meters.</p>
+                <p class="investor-translation"><span>Investor read</span> The steps are visible and repeatable. The outputs keep their source and method attached.</p>
+              </div>
+            </article>
+            <article class="answer-card">
+              <div class="answer-number">03</div>
+              <div>
+                <h3>What did it reveal?</h3>
+                <p>Some plot IDs have mapped overlap records worth checking. Many have no matching row, which is a data-coverage question, not a clean bill of health.</p>
+                <p class="investor-translation"><span>Investor read</span> A diligence team can start with a short verification queue instead of treating every parcel as equally understood.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-forest" id="findings" aria-labelledby="findings-title">
+        <div class="page-width">
+          <div class="section-heading section-heading-light">
+            <p class="eyebrow">The outcome</p>
+            <h2 id="findings-title">A useful signal, with a very clear boundary.</h2>
+            <p class="section-intro">The GIS screen helps prioritize questions. It does not decide whether a product is compliant, financeable, or safe to buy.</p>
+          </div>
+          <div class="outcome-grid">
+            <article class="outcome-card outcome-main">
+              <p class="card-kicker">What did we find?</p>
+              <div class="big-stat"><strong>85</strong><span>of 462<br>plot IDs</span></div>
+              <p>matched an overlap-summary row in the 2019–2022 screen. The three highest calculated shares of plot area overlapping mapped forest-loss polygons were:</p>
+              <ol class="rank-list">
+                <li><span class="rank">01</span><span class="plot-id" translate="no">MB_71</span><span class="rank-bar"><i style="--bar:93.54%"></i></span><strong>93.54%</strong></li>
+                <li><span class="rank">02</span><span class="plot-id" translate="no">LS_CP_360</span><span class="rank-bar"><i style="--bar:86.59%"></i></span><strong>86.59%</strong></li>
+                <li><span class="rank">03</span><span class="plot-id" translate="no">LS_CP_366</span><span class="rank-bar"><i style="--bar:59.24%"></i></span><strong>59.24%</strong></li>
+              </ol>
+              <p class="small-note">Percentages are mapped overlap area divided by mapped plot area. They are not estimates of crop loss, production, revenue, or legal exposure.</p>
+            </article>
+            <article class="outcome-card">
+              <p class="card-kicker">What does it mean?</p>
+              <h3>Put the records in review order.</h3>
+              <p>Start by reconciling the highest-overlap plot IDs against source imagery, parcel history, producer records, and the actual supply chain. Then investigate unmatched records separately.</p>
+              <p class="callout-inline">No match in the join means “not matched.” It does not mean “no forest loss.”</p>
+            </article>
+            <article class="outcome-card">
+              <p class="card-kicker">Who cares about it?</p>
+              <h3>People who need evidence before a decision.</h3>
+              <ul class="stakeholder-list">
+                <li><b>Producers and cooperatives</b><span>See which plot records need stronger location or history evidence.</span></li>
+                <li><b>Exporters and buyers</b><span>Focus traceability follow-up before sourcing or onboarding.</span></li>
+                <li><b>Investors and lenders</b><span>Separate a fixable information gap from a risk that needs specialist review.</span></li>
+                <li><b>Technical and compliance teams</b><span>Keep geospatial flags tied to sources, dates, and review status.</span></li>
+              </ul>
+            </article>
+          </div>
+          <p class="section-footnote">The ranking is a triage aid, not an automated pass/fail score. A red polygon can start a conversation. It cannot finish one.</p>
+        </div>
+      </section>
+
+      <section class="section section-paper" id="evidence" aria-labelledby="evidence-title">
+        <div class="page-width">
+          <div class="section-heading evidence-heading">
+            <div>
+              <p class="eyebrow eyebrow-dark">Click through the map evidence</p>
+              <h2 id="evidence-title">One GIS project. Five views of the same question.</h2>
+            </div>
+            <p class="section-intro">Use the buttons to walk through the layers as you would in QGIS. Each image is a real capture from this analysis.</p>
+          </div>
+
+          <div class="evidence-layout">
+            <div class="evidence-step-list" role="tablist" aria-label="QGIS evidence views">
+              <button class="evidence-tab" id="tab-sources" type="button" role="tab" aria-selected="true" aria-controls="evidence-panel" tabindex="0" data-slide="0">
+                <span class="step-index">01</span><span><b>Source layers</b><small>Cacao plots and mapped forest loss</small></span><span class="step-arrow" aria-hidden="true">↗</span>
+              </button>
+              <button class="evidence-tab" id="tab-overview" type="button" role="tab" aria-selected="false" aria-controls="evidence-panel" tabindex="-1" data-slide="1">
+                <span class="step-index">02</span><span><b>Portfolio screen</b><small>The filtered plot-level result</small></span><span class="step-arrow" aria-hidden="true">↗</span>
+              </button>
+              <button class="evidence-tab" id="tab-detail" type="button" role="tab" aria-selected="false" aria-controls="evidence-panel" tabindex="-1" data-slide="2">
+                <span class="step-index">03</span><span><b>Local detail</b><small>What the screen looks like on the ground</small></span><span class="step-arrow" aria-hidden="true">↗</span>
+              </button>
+              <button class="evidence-tab" id="tab-overlap" type="button" role="tab" aria-selected="false" aria-controls="evidence-panel" tabindex="-1" data-slide="3">
+                <span class="step-index">04</span><span><b>Overlap evidence</b><small>Mapped forest-loss intersections</small></span><span class="step-arrow" aria-hidden="true">↗</span>
+              </button>
+              <button class="evidence-tab" id="tab-ranked" type="button" role="tab" aria-selected="false" aria-controls="evidence-panel" tabindex="-1" data-slide="4">
+                <span class="step-index">05</span><span><b>Ranked plots</b><small>Calculated percentages and plot IDs</small></span><span class="step-arrow" aria-hidden="true">↗</span>
+              </button>
+              <p class="tab-hint">Tip: Tab to a view, then use ← and → to move through the evidence.</p>
+            </div>
+            <div class="evidence-viewer" id="evidence-panel" role="tabpanel" aria-labelledby="tab-sources" tabindex="0">
+              <div class="viewer-bar"><span><i></i> QGIS project capture</span><span id="slide-count" aria-live="polite">View 1 of 5</span></div>
+              <figure class="evidence-figure">
+                <a id="image-link" class="image-link" href="/images/01-sources.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size QGIS source layers screenshot in a new tab">
+                  <img id="evidence-image" src="/images/01-sources.png" width="1722" height="970" alt="Map of the study area in Ucayali, Peru, with cacao plot polygons and mapped forest-loss source features displayed over the same basemap." fetchpriority="high">
+                </a>
+                <figcaption>
+                  <span class="caption-step" id="caption-step">01 / Inputs</span>
+                  <span class="caption-copy"><strong id="caption-title">Source layers</strong><span id="caption-description">The cacao polygons and the forest-loss layer are visible together over the Ucayali study area. This is source context, not an overlap result.</span></span>
+                </figcaption>
+              </figure>
+              <p class="viewer-footnote">Screenshot captured in QGIS 4.2.3 on 14 October 2026. Click the map to open the full-size image.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-sand" id="method" aria-labelledby="method-title">
+        <div class="page-width">
+          <div class="section-heading">
+            <p class="eyebrow eyebrow-dark">How the analysis was built</p>
+            <h2 id="method-title">A transparent stack, with the boring parts left in.</h2>
+            <p class="section-intro">The repairs, coordinate systems, filters, joins, and missing matches are part of the result. Hiding them would make the map prettier and the decision worse.</p>
+          </div>
+          <div class="method-layout">
+            <div class="method-timeline">
+              <article class="method-step">
+                <span class="method-dot">01</span>
+                <div><h3>Load and inspect</h3><p>Loaded the <a href="#source-cacao">cacao GeoJSON [1]</a> and the <a href="#source-forest">SERFOR/MINAM ArcGIS forest-loss layer [2]</a>. Set the working view to the study extent.</p></div>
+              </article>
+              <article class="method-step">
+                <span class="method-dot">02</span>
+                <div><h3>Check and repair geometry</h3><p>The cacao file had 461 valid polygons and one self-intersection. Fix Geometries produced 462 valid polygons. The clipped forest-loss layer was also repaired and then passed a validity check with 41,717 valid features and no reported errors.</p></div>
+              </article>
+              <article class="method-step">
+                <span class="method-dot">03</span>
+                <div><h3>Filter and overlay</h3><p>Filtered the <a href="#source-forest">forest-loss layer [2]</a> to <span class="code-chip">Año = 2019–2022</span>, clipped the layer to the cacao study extent, then intersected it with the plot polygons.</p></div>
+              </article>
+              <article class="method-step">
+                <span class="method-dot">04</span>
+                <div><h3>Summarize by plot</h3><p>Grouped overlap features by <span class="code-chip">PLOT_ID</span>, joined the summary back to the 462-plot layer, and calculated the share of plot area that overlaps mapped forest-loss polygons.</p></div>
+              </article>
+              <article class="method-step">
+                <span class="method-dot">05</span>
+                <div><h3>Style for review</h3><p>Applied a graduated color ramp to sort the plot-level screen. In the ranked-table capture, the yellow polygon is QGIS’s selected-feature highlight. The status bar says “Selected: 1.” It is not a separate risk class.</p></div>
+              </article>
+            </div>
+            <aside class="stack-card" aria-labelledby="stack-title">
+              <p class="card-kicker">Tools used</p>
+              <h3 id="stack-title">The working stack</h3>
+              <dl class="stack-list">
+                <div><dt>GIS desktop</dt><dd>QGIS 4.2.3</dd></div>
+                <div><dt>Cacao polygons</dt><dd>GeoJSON, EPSG:32718</dd></div>
+                <div><dt>Forest-loss source</dt><dd>SERFOR/MINAM ArcGIS REST feature layer</dd></div>
+                <div><dt>Analysis storage</dt><dd>GeoPackage outputs</dd></div>
+                <div><dt>Spatial operations</dt><dd>Check validity, Fix Geometries, clip by extent, intersection, statistics by categories, join by field value</dd></div>
+                <div><dt>Map context</dt><dd>OpenStreetMap basemap, reprojected on the fly for display</dd></div>
+              </dl>
+              <div class="stack-rule"></div>
+              <p class="card-kicker">The calculations</p>
+              <p class="formula-label">Plot area in hectares</p>
+              <code class="formula">area($geometry) / 10000</code>
+              <p class="formula-label">Share overlapping mapped loss</p>
+              <code class="formula">if("farm_ha" &gt; 0,<br>100 * coalesce("loss_sum", 0) / "farm_ha",<br>NULL)</code>
+              <p class="small-note">The expression converts a missing join value to zero. That can make an unmatched plot look like zero overlap. The next version should carry an explicit match-status field.</p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-paper" id="decision" aria-labelledby="decision-title">
+        <div class="page-width">
+          <div class="section-heading">
+            <p class="eyebrow eyebrow-dark">From map to decision</p>
+            <h2 id="decision-title">Turn a polygon flag into a useful next step.</h2>
+            <p class="section-intro">A real diligence workflow would connect each spatial observation to the documents and people who can explain it. The goal is a better review queue, not an automatic rejection button.</p>
+          </div>
+          <div class="action-grid">
+            <article class="action-card"><span class="action-tag">First</span><h3>Reconcile identity</h3><p>Confirm that each <span class="code-chip">PLOT_ID</span> points to the right producer and current production boundary.</p></article>
+            <article class="action-card"><span class="action-tag">Then</span><h3>Check the timeline</h3><p>Review dated imagery and land-use history around the relevant date. Annual 2020 data cannot locate change relative to 31 December 2020.</p></article>
+            <article class="action-card"><span class="action-tag">Connect</span><h3>Trace the shipment</h3><p>Link verified plots to purchase records, harvest periods, cooperative lots, and export batches.</p></article>
+            <article class="action-card"><span class="action-tag">Decide</span><h3>Assign a human review</h3><p>Record what evidence supports the claim, what remains unresolved, who owns the follow-up, and when to revisit it.</p></article>
+          </div>
+
+          <div class="decision-note">
+            <div class="decision-icon" aria-hidden="true">↳</div>
+            <div>
+              <h3>Where RAG or Jev could fit later</h3>
+              <p>They were not used in this GIS demo. In a partner-backed workflow, retrieval could bring the dated buyer requirement and supporting documents into one evidence bundle. Jev could answer a bounded question about that bundle, while ordinary code handles exact fields, arithmetic, and routing. A reviewer would still approve the action and see the source records.</p>
+            </div>
+            <span class="future-label">Possible next build</span>
+          </div>
+
+          <div class="regulatory-panel">
+            <div class="regulatory-copy">
+              <p class="eyebrow eyebrow-dark">Why buyers ask</p>
+              <h3>Cocoa is in scope of the EU Deforestation Regulation.</h3>
+              <p>As of this research snapshot, the European Commission lists 30 December 2026 for large and medium operators, and most micro and small operators from 30 June 2027. The rule's obligations depend on the actor's role in the supply chain. Importers and other operators have due-diligence duties; a smallholder outside the EU may still be asked by a buyer for plot geolocation and supporting information. <a href="https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en" target="_blank" rel="noopener noreferrer">Current Commission overview</a> · <a href="https://green-forum.ec.europa.eu/nature-and-biodiversity/deforestation-regulation-implementation/roles-and-responsibilities_en" target="_blank" rel="noopener noreferrer">Roles and responsibilities</a>.</p>
+            </div>
+            <div class="regulatory-date">
+              <span>As of 14 Oct 2026</span>
+              <strong>30 Dec<br>2026</strong>
+              <small>Large and medium operators</small>
+              <div class="date-divider"></div>
+              <strong>30 Jun<br>2027</strong>
+              <small>Most micro and small operators</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-amber" aria-labelledby="limits-title">
+        <div class="page-width limits-layout">
+          <div class="limits-heading">
+            <p class="eyebrow eyebrow-dark">Read this before using the numbers</p>
+            <h2 id="limits-title">A screen is a starting point, not a verdict.</h2>
+          </div>
+          <div class="limits-list">
+            <details open>
+              <summary>Time windows do not line up with a compliance test</summary>
+              <p>The forest-loss screen uses annual observations for 2019–2022. The EUDR deforestation cutoff is 31 December 2020. The selected period includes pre-cutoff years, and annual data cannot pinpoint a change to that date. The cacao dataset description says its polygons were interpreted from satellite imagery beginning in 2020. It does not establish complete coverage through 2024. <a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng" target="_blank" rel="noopener noreferrer">Read the regulation</a>.</p>
+            </details>
+            <details open>
+              <summary>Missing join rows are unknown, not clean</summary>
+              <p>377 plot IDs did not match an overlap-summary row. Because the field calculator uses <span class="code-chip">coalesce("loss_sum", 0)</span>, some may display as zero. Treat those records as “no summary match” until the join and source coverage are checked.</p>
+            </details>
+            <details open>
+              <summary>The polygons are not a supplier register</summary>
+              <p>This demonstration used public mapped cacao areas. It did not use producer identities, plot ownership or use rights, purchases, volumes, batch links, field visits, or a buyer's requirements. It cannot establish that a specific organization supplied a specific shipment.</p>
+            </details>
+            <details open>
+              <summary>Overlap does not establish cause or legal status</summary>
+              <p>A mapped intersection can reflect timing, classification, geometry, or source-data issues. A qualified reviewer must examine imagery, land history, and applicable legal definitions before drawing a compliance conclusion.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-paper source-section" id="sources" aria-labelledby="sources-title">
+        <div class="page-width">
+          <div class="section-heading source-heading">
+            <p class="eyebrow eyebrow-dark">Sources and provenance</p>
+            <h2 id="sources-title">Follow the evidence back to its source.</h2>
+            <p class="section-intro">Source links were checked for this research snapshot on 14 October 2026. Regulatory timelines can change; confirm the current rule before a real transaction.</p>
+          </div>
+          <ol class="source-list">
+            <li id="source-cacao"><span class="source-number">01</span><div><a href="https://doi.org/10.7910/DVN/XMQNC2" target="_blank" rel="noopener noreferrer">Cacao polygons in Peru, Harvard Dataverse</a><p>Public GeoJSON and accompanying attribute guide. The dataset description focuses on cacao areas including Padre Abad, Ucayali, and says the polygons were delineated through satellite-image interpretation beginning in 2020.</p></div><span class="source-type">Study input</span></li>
+            <li id="source-forest"><span class="source-number">02</span><div><a href="https://geo.serfor.gob.pe/geoservicios/rest/services/Integracion/Int_IDE_MINAM_PERDIDA_BOSQUE/MapServer/0" target="_blank" rel="noopener noreferrer">SERFOR/MINAM forest-loss feature layer</a><p>ArcGIS REST layer titled <span translate="no">Perdida_2001_2024_WGS84</span>. This analysis filtered its <span translate="no">Año</span> field to 2019–2022.</p></div><span class="source-type">Study input</span></li>
+            <li id="source-eudr"><span class="source-number">03</span><div><a href="https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en" target="_blank" rel="noopener noreferrer">European Commission, EUDR overview</a><p>Commodity scope and application dates shown here reflect the Commission page as checked on 14 October 2026.</p></div><span class="source-type">Regulatory context</span></li>
+            <li id="source-roles"><span class="source-number">04</span><div><a href="https://green-forum.ec.europa.eu/nature-and-biodiversity/deforestation-regulation-implementation/roles-and-responsibilities_en" target="_blank" rel="noopener noreferrer">European Commission, roles and responsibilities</a><p>Explains how obligations differ among upstream operators, downstream actors, importers, and smallholders.</p></div><span class="source-type">Regulatory context</span></li>
+            <li id="source-law"><span class="source-number">05</span><div><a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj/eng" target="_blank" rel="noopener noreferrer">Regulation (EU) 2023/1115, EUR-Lex</a><p>Primary legal text for the EU Deforestation Regulation. Use it with the Commission's current guidance and FAQs.</p></div><span class="source-type">Primary law</span></li>
+            <li id="source-osm"><span class="source-number">06</span><div><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a><p>Basemap context visible in the QGIS screenshots. The screenshots are evidence images, not a live interactive map service.</p></div><span class="source-type">Map context</span></li>
+          </ol>
+          <div class="provenance-note">
+            <span class="provenance-mark" aria-hidden="true">i</span>
+            <p><b>What this case study is.</b> A public-data GIS workflow demonstration for investor-readiness conversations about cacao sourcing in Peru. It is not an Apyara assessment, partner diligence report, legal opinion, certification, or investment recommendation.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="page-width footer-inner">
+        <a class="brand brand-footer" href="#top">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>Field notes <small>Ucayali, Peru</small></span>
+        </a>
+        <p>Public data. Visible method. Human review.</p>
+        <a class="back-top" href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+  </body>
+</html>
